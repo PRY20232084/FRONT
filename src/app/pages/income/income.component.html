@@ -1,0 +1,144 @@
+<div *ngIf="isLoading" class="text-center loading-overlay">
+    <div class="spinner-loader flex-column">
+      <span class="spinner-border text-primary" role="status"></span>
+  </div>
+  <span class="text-muted fs-6 fw-semibold mt-5">Cargando...</span>
+  </div>
+  
+  <div *ngIf="!isLoading">
+  <div class="card mb-5 mb-xl-8">
+    <app-modal #modal [modalConfig]="modalConfig"> </app-modal>
+    
+    <!--begin::Header-->
+    <div class="card-header border-0 pt-5">
+      <h3 class="card-title align-items-start flex-column">
+        <span class="card-label fw-bold fs-3 mb-1">Entradas</span>
+  
+        <span class="text-muted mt-1 fw-semibold fs-7">Lista de entradas</span>
+      </h3>
+      <div class="card-toolbar">
+        <a class="btn btn-sm btn-light-primary" (click)="goCreate()">
+          <i class="ki-duotone ki-plus fs-2"></i> Nueva entrada
+        </a>
+      </div>
+    </div>
+    <!--end::Header-->
+  
+    <!--begin::Body-->
+    <div class="card-body py-3">
+      <!--begin::Table container-->
+      <div class="table-responsive">
+        <!--begin::Table-->
+        <table class="table align-middle gs-0 gy-4">
+          <!--begin::Table head-->
+          <thead>
+            <tr class="fw-bold text-muted bg-light">
+              <th class="ps-4 min-w-40px rounded-start">ID</th>
+              <th class="min-w-200px">Descripción</th>
+              <th class="min-w-125px">Fecha compra</th>
+              <th class="min-w-125px">Registrado el</th>
+              <th class="min-w-150px">Registrado por</th>
+              <th class="min-w-125px">Movimiento</th>
+              <th class="min-w-125px">Registro</th>
+              <th class="min-w-200px text-end rounded-end"></th>
+            </tr>
+          </thead>
+          <!--end::Table head-->
+  
+          <!--begin::Table body-->
+          <tbody>
+            <tr *ngFor="let movement of movements">
+              <div class="d-flex align-items-center">
+                <div class="symbol symbol-50px me-5"></div>
+  
+                <div class="d-flex justify-content-start flex-column">
+                  <a class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">{{
+                    movement.id
+                  }}</a>
+                </div>
+              </div>
+              <td>
+                <a
+                  class="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-6"
+                  >{{ movement.description }}</a
+                >
+              </td>
+              <td>
+                <a
+                  class="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-6"
+                  >{{ movement.boughtDate | date : "dd/MM/YYYY" }}</a
+                >
+              </td>
+              <td>
+                <a
+                  class="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-6"
+                  >{{ movement.createdAt | date : "dd/MM/YYYY" }}</a
+                >
+              </td>
+              <td>
+                <a
+                  class="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-6"
+                  >{{ movement.createdBy }}</a
+                >
+              </td>
+              <ng-container
+                *ngIf="movement.movementType === true; else movementSalida"
+              >
+                <td>
+                  <a
+                    class="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-6"
+                    >Entrada</a
+                  >
+                </td>
+              </ng-container>
+              <ng-template #movementSalida>
+                <td>
+                  <a
+                    class="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-6"
+                    >Salida</a
+                  >
+                </td></ng-template
+              >
+              <ng-container
+                *ngIf="movement.registerType === true; else movementRegistro"
+              >
+                <td>
+                  <a
+                    class="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-6"
+                    >Materia prima</a
+                  >
+                </td>
+              </ng-container>
+              <ng-template #movementRegistro>
+                <td>
+                  <a
+                    class="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-6"
+                    >Producto</a
+                  >
+                </td></ng-template
+              >
+              <td class="text-end">
+                <a
+                  class="btn btn-icon btn-bg-light btn-active-color-danger btn-sm"
+                >
+                  <i
+                    class="ki-duotone ki-trash fs-2"
+                    (click)="openModal(movement)"
+                    ><span class="path1"></span><span class="path2"></span
+                    ><span class="path3"></span><span class="path4"></span
+                    ><span class="path5"></span
+                  ></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+          <!--end::Table body-->
+        </table>
+        <!--end::Table-->
+      </div>
+      <!--end::Table container-->
+    </div>
+    <!--begin::Body-->
+  </div>
+  </div>
+  

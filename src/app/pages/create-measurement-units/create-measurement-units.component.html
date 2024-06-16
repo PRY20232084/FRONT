@@ -1,0 +1,35 @@
+<div>
+  <form [formGroup]="form" class="text-center border border-light p-5 col-lg-6 offset-lg-3" (ngSubmit)="onSubmit()">
+    <p class="h4 mb-4">AÑADIR UNIDAD DE MEDIDA</p>
+    <div class="form-group col-md-12">
+      <input type="hidden" formControlName="measurementUnitId"/>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="name">NOMBRE</label>
+      <input type="text" class="form-control" id="name" formControlName="name" placeholder="Nombre" />
+      <div *ngIf="form.get('name')?.invalid && (form.get('name')?.dirty || form.get('name')?.touched)" class="text-danger">
+        <div *ngIf="form.get('name')?.errors?.required">El nombre de la unidad de medida es requerido.</div>
+        <div *ngIf="form.get('name')?.errors?.pattern">El nombre de la unidad de medida solo puede contener letras.</div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="abbreviation">ABREVIACIÓN</label>
+      <input type="text" class="form-control" id="abbreviation" formControlName="abbreviation" placeholder="Abreviación" />
+      <div *ngIf="form.get('abbreviation')?.invalid && (form.get('abbreviation')?.dirty || form.get('abbreviation')?.touched)" class="text-danger">
+        <div *ngIf="form.get('abbreviation')?.errors?.required">La abreviación es requerida.</div>
+        <div *ngIf="form.get('abbreviation')?.errors?.pattern">La abreviación solo puede contener letras y puntos</div>
+      </div>
+    </div>
+
+    <br />
+    <div class="form-group col-md-12">
+      <button type="submit" class="btn btn-success">AÑADIR</button>
+    </div>
+    <br />
+    <div class="form-group col-md-12">
+      <button (click)="goBack()" class="btn btn-secondary">Atrás</button>
+    </div>
+  </form>
+</div>

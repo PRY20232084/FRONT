@@ -1,0 +1,109 @@
+<div>
+  <form
+    class="text-center border border-light p-5 col-lg-6 offset-lg-3"
+    (ngSubmit)="insertMovement()"
+  >
+    <p class="h4 mb-4">AÑADIR MOVIMIENTO</p>
+    <div class="form-group col-md-12">
+      <input
+        type="hidden"
+        id="movementId"
+        name="movementId"
+      />
+    </div>
+
+    <div class="form-check form-check-custom form-check-solid me-10">
+      <input class="form-check-input h-30px w-30px" type="radio" value="true" id="flexCheckbox30" name="radio" [(ngModel)]="isProduct"
+      (change)="onRadioChange(true)" checked=""/>
+      <label class="form-check-label" for="flexCheckbox30">
+          PRODUCTO
+      </label>
+  </div>
+  <div class="form-check form-check-custom form-check-solid me-10">
+    <input class="form-check-input h-30px w-30px" type="radio" value="false" id="flexCheckbox30" name="radio" [(ngModel)]="isProduct"
+    (change)="onRadioChange(false)" checked=""/>
+    <label class="form-check-label" for="flexCheckbox30">
+        MATERIA PRIMA
+    </label>
+</div>
+
+    <div *ngIf="isProduct">
+      <div class="form-group">
+        <label class="control-label">PRODUCTO</label>
+        <select class="form-control" [(ngModel)]="selectedProductId" name="selectedProductId">
+          <option *ngFor="let product of products" [value]="product.id">
+            {{ product.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div *ngIf="!isProduct">
+      <div class="form-group">
+        <label class="control-label">MATERIA PRIMA</label>
+        <select class="form-control" [(ngModel)]="selectedRawMaterialId" name="selectedRawMaterialId">
+          <option *ngFor="let rawMaterial of rawMaterials" [value]="rawMaterial.id">
+            {{ rawMaterial.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <label>FECHA DE COMPRA</label>
+    <div class="form-group">
+      <div class="input-group mb-5">
+          <span class="input-group-text">
+              <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
+          </span>
+          <input type="date" class="form-control"  [(ngModel)]="movement.boughtDate" name="boughtDate" placeholder="Selecciona una fecha" />
+      </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label">TIPO DE MOVIMIENTO</label>
+    <select class="form-control" [(ngModel)]="movement.movementType" name="movementType">
+      <option [ngValue]="true">
+        INGRESO
+      </option>
+      <option [ngValue]="false">
+        SALIDA
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group col-md-12">
+    <label for="quantity">CANTIDAD</label>
+    <input
+      type="number"
+      class="form-control"
+      id="quantity"
+      name="quantity"
+      placeholder="0"
+      required
+      [(ngModel)]="quantity"
+    />
+  </div>
+
+  <div class="form-group col-md-12">
+    <label for="quantity">DESCRIPCIÓN</label>
+    <input
+      type="text"
+      class="form-control"
+      id="description"
+      name="description"
+      placeholder="Descripción"
+      required
+      [(ngModel)]="movement.description"
+    />
+  </div>
+
+    <br />
+    <div class="form-group col-md-12">
+      <button type="submit" class="btn btn-success">AÑADIR</button>
+    </div>
+    <br />
+    <div class="form-group col-md-12">
+      <button (click)="goBack()" class="btn btn-secondary">Atrás</button>
+    </div>
+  </form>
+</div>

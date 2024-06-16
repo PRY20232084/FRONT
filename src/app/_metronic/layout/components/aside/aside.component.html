@@ -1,0 +1,24 @@
+<!-- begin::Brand -->
+<div class="aside-logo flex-column-auto" id="kt_aside_logo">
+  <!-- begin::Logo -->
+  <ng-container *ngIf="asideTheme === 'dark'">
+    <a routerLink="/dashboard">
+      <img
+        alt="Logo"
+        class="h-25px logo"
+        src="./assets/media/logos/default-dark.svg"
+      />
+    </a>
+  </ng-container>
+
+  <ng-container *ngIf="asideTheme === 'light'">
+    <a routerLink="/dashboard">
+      <img
+        alt="Logo"
+        class="h-25px logo"
+        src="./assets/media/logos/default.svg"
+      />
+    </a>
+  </ng-container>
+</div>
+<!-- end::Brand  -->

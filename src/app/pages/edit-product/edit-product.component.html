@@ -1,0 +1,80 @@
+<div *ngIf="isLoading" class="text-center loading-overlay">
+  <div class="spinner-loader flex-column">
+    <span class="spinner-border text-primary" role="status"></span>
+</div>
+<span class="text-muted fs-6 fw-semibold mt-5">Cargando...</span>
+</div>
+
+<div>
+    <form
+      class="text-center border border-light p-5 col-lg-6 offset-lg-3"
+      (ngSubmit)="updateProduct()"
+    >
+      <p class="h4 mb-4">EDITAR PRODUCTO</p>
+      <div class="form-group col-md-12">
+        <label for="quantity">NOMBRE</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          placeholder="Nombre"
+          required
+          [(ngModel)]="editProduct.name"
+        />
+      </div>
+
+      <div class="form-group col-md-12">
+        <label for="quantity">DESCRIPCIÓN</label>
+        <input
+          type="text"
+          class="form-control"
+          id="brandName"
+          name="brandName"
+          placeholder="Descripción"
+          required
+          [(ngModel)]="editProduct.description"
+        />
+      </div>
+
+      <div class="form-group col-md-12">
+        <label for="quantity">STOCK</label>
+        <input
+          type="number"
+          class="form-control"
+          id="quantity"
+          name="quantity"
+          placeholder="0"
+          required
+          [(ngModel)]="editProduct.stock"
+        />
+      </div>
+  
+        <div class="form-group">
+          <label class="control-label">TALLA</label>
+          <select class="form-control" [(ngModel)]="editProduct.size_ID" name="selectedSizeId">
+            <option *ngFor="let size of productSizes" [value]="size.id">
+              {{ size.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">ESTILO</label>
+            <select class="form-control" [(ngModel)]="editProduct.style_ID" name="selectedStyleId">
+              <option *ngFor="let style of productStyles" [value]="style.id">
+                {{ style.name }}
+              </option>
+            </select>
+          </div>
+  
+      <br />
+      <div class="form-group col-md-12">
+        <button type="submit" class="btn btn-primary">GUARDAR CAMBIOS</button>
+      </div>
+      <br />
+      <div class="form-group col-md-12">
+        <button (click)="goBack()" class="btn btn-secondary">Atrás</button>
+      </div>
+    </form>
+  </div>

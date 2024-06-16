@@ -1,0 +1,172 @@
+<div>
+  <form
+    class="text-center border border-light p-5 col-lg-6 offset-lg-3"
+    [formGroup]="createProductForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <p class="h4 mb-4">AÑADIR PRODUCTO</p>
+    <div class="form-group col-md-12">
+      <label for="name">NOMBRE</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        formControlName="name"
+        placeholder="Nombre"
+        required
+      />
+      <div
+        class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+        *ngIf="
+          createProductForm.get('name')?.invalid &&
+          (createProductForm.get('name')?.dirty ||
+            createProductForm.get('name')?.touched)
+        "
+      >
+        <div *ngIf="createProductForm.get('name')?.errors?.required">
+          El nombre del producto es requerido.
+        </div>
+        <div *ngIf="createProductForm.get('name')?.errors?.pattern">
+          El nombre solo puede contener letras, números y puntos
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="description">DESCRIPCIÓN</label>
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        formControlName="description"
+        placeholder="Descripción"
+        required
+      />
+      <div
+        class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+        *ngIf="
+          createProductForm.get('description')?.invalid &&
+          (createProductForm.get('description')?.dirty ||
+            createProductForm.get('description')?.touched)
+        "
+      >
+        <div *ngIf="createProductForm.get('description')?.errors?.required">
+          La descripción del producto es requerida.
+        </div>
+        <div *ngIf="createProductForm.get('description')?.errors?.pattern">
+          La descripción solo puede contener letras, números, puntos y comas
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="stock">CANTIDAD</label>
+      <input
+        type="number"
+        class="form-control"
+        id="stock"
+        formControlName="stock"
+        placeholder="1"
+        min="1"
+        required
+      />
+      <div
+        class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+        *ngIf="
+          createProductForm.get('stock')?.invalid &&
+          (createProductForm.get('stock')?.dirty ||
+            createProductForm.get('stock')?.touched)
+        "
+      >
+        <div *ngIf="createProductForm.get('stock')?.errors?.required">
+          La cantidad del producto es requerido.
+        </div>
+        <div *ngIf="createProductForm.get('stock')?.errors?.min">
+          La cantidad debe ser mayor a 0.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label">TALLA</label>
+      <select class="form-control" formControlName="size_ID">
+        <option *ngFor="let size of productSizes" [value]="size.id">
+          {{ size.name }}
+        </option>
+      </select>
+      <div
+        class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+        *ngIf="
+          createProductForm.get('size_ID')?.invalid &&
+          (createProductForm.get('size_ID')?.dirty ||
+            createProductForm.get('size_ID')?.touched)
+        "
+      >
+        <div *ngIf="createProductForm.get('size_ID')?.errors?.required">
+          El tamaño de la prenda es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label">ESTILO</label>
+      <select class="form-control" formControlName="style_ID">
+        <option *ngFor="let style of productStyles" [value]="style.id">
+          {{ style.name }}
+        </option>
+      </select>
+      <div
+        class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+        *ngIf="
+          createProductForm.get('style_ID')?.invalid &&
+          (createProductForm.get('style_ID')?.dirty ||
+            createProductForm.get('style_ID')?.touched)
+        "
+      >
+        <div *ngIf="createProductForm.get('style_ID')?.errors?.required">
+          El estilo de la prenda es requerido.
+        </div>
+      </div>
+    </div>
+
+    <!-- <label class="control-label">MATERIALES</label>
+
+    <div
+      class="form-group"
+      *ngFor="let material of materialArray; let i = index"
+    >
+      <div class="row mb-7">
+        <div class="col-6">
+          <select class="form-control" [(ngModel)]="material.materialId">
+            <option *ngFor="let item of items" [value]="item.value">
+              {{ item.name }} - {{ item.value }}
+            </option>
+          </select>
+        </div>
+        <div class="col-6">
+            <input
+            type="number"
+            class="form-control"
+            id="stock"
+            formControlName="stock"
+            placeholder="0"
+            required
+           [(ngModel)]="material.quantity" />
+        </div>
+      </div>
+    </div>
+
+    <button type="button" (click)="addMaterial()">Agregar Material</button> -->
+
+    <br />
+    <div class="form-group col-md-12">
+      <button type="submit" class="btn btn-success">AÑADIR</button>
+    </div>
+    <br />
+    <div class="form-group col-md-12">
+      <button type="submit" (click)="goBack()" class="btn btn-secondary">
+        Atrás
+      </button>
+    </div>
+  </form>
+</div>

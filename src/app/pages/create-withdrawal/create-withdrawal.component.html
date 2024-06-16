@@ -1,0 +1,125 @@
+<div *ngIf="isLoading" class="text-center loading-overlay">
+  <div class="spinner-loader flex-column">
+    <span class="spinner-border text-primary" role="status"></span>
+  </div>
+  <span class="text-muted fs-6 fw-semibold mt-5">Cargando...</span>
+</div>
+
+<div>
+  <form
+    class="text-center border border-light p-5 col-lg-6 offset-lg-3"
+    [formGroup]="movementForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <p class="h4 mb-4">AÑADIR SALIDA</p>
+    <div class="form-group col-md-12">
+      <input type="hidden" id="movementId" name="movementId" />
+    </div>
+
+    <div class="form-check form-check-custom form-check-solid me-10">
+      <input
+        class="form-check-input h-30px w-30px"
+        type="radio"
+        value="true"
+        id="flexCheckbox30"
+        name="radio"
+        (change)="onRadioChange(true)"
+        [checked]="isProduct"
+      />
+      <label class="form-check-label" for="flexCheckbox30"> PRODUCTO </label>
+    </div>
+    <div class="form-check form-check-custom form-check-solid me-10">
+      <input
+        class="form-check-input h-30px w-30px"
+        type="radio"
+        value="false"
+        id="flexCheckbox31"
+        name="radio"
+        (change)="onRadioChange(false)"
+        [checked]="!isProduct"
+      />
+      <label class="form-check-label" for="flexCheckbox31"> MATERIA PRIMA </label>
+    </div>
+
+    <div *ngIf="isProduct">
+      <div class="form-group">
+        <label class="control-label">PRODUCTO</label>
+        <select class="form-control" formControlName="selectedProductId">
+          <option *ngFor="let product of products" [value]="product.id">
+            {{ product.name }}
+          </option>
+        </select>
+        <div *ngIf="movementForm.controls.selectedProductId.invalid && (movementForm.controls.selectedProductId.dirty || movementForm.controls.selectedProductId.touched)">
+          <small class="text-danger" *ngIf="movementForm.controls.selectedProductId.errors?.requiredIfProduct">Debe seleccionar un producto.</small>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!isProduct">
+      <div class="form-group">
+        <label class="control-label">MATERIA PRIMA</label>
+        <select class="form-control" formControlName="selectedRawMaterialId">
+          <option *ngFor="let rawMaterial of rawMaterials" [value]="rawMaterial.id">
+            {{ rawMaterial.name }}
+          </option>
+        </select>
+        <div *ngIf="movementForm.controls.selectedRawMaterialId.invalid && (movementForm.controls.selectedRawMaterialId.dirty || movementForm.controls.selectedRawMaterialId.touched)">
+          <small class="text-danger" *ngIf="movementForm.controls.selectedRawMaterialId.errors?.requiredIfRawMaterial">Debe seleccionar una materia prima.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>FECHA DE OPERACIÓN</label>
+      <div class="input-group mb-5">
+        <span class="input-group-text">
+          <i class="ki-duotone ki-calendar fs-2"><span class="path1"></span><span class="path2"></span></i>
+        </span>
+        <input
+          type="date"
+          class="form-control"
+          formControlName="boughtDate"
+          placeholder="Selecciona una fecha"
+        />
+      </div>
+      <div *ngIf="movementForm.controls.boughtDate.invalid && (movementForm.controls.boughtDate.dirty || movementForm.controls.boughtDate.touched)">
+        <small class="text-danger" *ngIf="movementForm.controls.boughtDate.errors?.required">Fecha es requerida.</small>
+        <small class="text-danger" *ngIf="movementForm.controls.boughtDate.errors?.invalidDate">Fecha inválida o en el futuro.</small>
+      </div>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="quantity">CANTIDAD</label>
+      <input
+        type="number"
+        class="form-control"
+        formControlName="quantity"
+        placeholder="0"
+        required
+      />
+      <div *ngIf="movementForm.controls.quantity.invalid && (movementForm.controls.quantity.dirty || movementForm.controls.quantity.touched)">
+        <small class="text-danger" *ngIf="movementForm.controls.quantity.errors?.required">Cantidad es requerida.</small>
+        <small class="text-danger" *ngIf="movementForm.controls.quantity.errors?.min">La cantidad debe ser mayor a 0.</small>
+      </div>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="description">DESCRIPCIÓN</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="description"
+        placeholder="Descripción"
+      />
+    </div>
+
+    <br />
+    <div class="form-group col-md-12">
+      <button type="submit" class="btn btn-success">AÑADIR</button>
+    </div>
+    <br />
+    <div class="form-group col-md-12">
+      <button (click)="goBack()" class="btn btn-secondary">Atrás</button>
+    </div>
+  </form>
+</div>

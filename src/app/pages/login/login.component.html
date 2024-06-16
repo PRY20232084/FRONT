@@ -1,0 +1,69 @@
+<div class="bg-body d-flex flex-column align-items-stretch flex-center rounded-4 w-md-600px p-20">
+  <div class="d-flex flex-center flex-column flex-column-fluid px-lg-10 pb-15 pb-lg-20">
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+      class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework"
+      id="kt_sign_up_form"
+    >
+      <div class="text-center mb-11">
+        <h1 class="text-gray-900 fw-bolder mb-3">INGRESA AL SISTEMA</h1>
+      </div>
+
+      <div class="fv-row mb-8 fv-plugins-icon-container">
+        <input
+          type="text"
+          placeholder="Correo"
+          formControlName="email"
+          autocomplete="off"
+          class="form-control bg-transparent"
+        />
+        <div
+          class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+          *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
+        >
+          <div *ngIf="loginForm.get('email')?.errors?.required">Correo es requerido.</div>
+          <div *ngIf="loginForm.get('email')?.errors?.pattern">?
+            Ingrese un correo electrónico válido.
+          </div>
+        </div>
+      </div>
+
+      <div class="fv-row mb-8 fv-plugins-icon-container">
+        <div class="input-group">
+        <input
+        [type]="hidePassword ? 'password' : 'text'"
+          placeholder="Contraseña"
+          formControlName="password"
+          autocomplete="off"
+          class="form-control bg-transparent"
+        />
+        <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility()">
+          <i class="fa" [ngClass]="{'fa-eye': hidePassword, 'fa-eye-slash': !hidePassword}"></i>
+        </button>
+      </div>
+        <div
+          class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+          *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+        >
+          <div *ngIf="loginForm.get('password')?.errors?.required">Contraseña es requerida.</div>
+          <div *ngIf="loginForm.get('password')?.errors?.minlength">La contraseña debe tener como mínimo 8 caracteres.</div>
+        </div>
+      </div>
+
+      <div class="d-grid mb-10">
+        <button type="submit" id="kt_sign_up_submit" class="btn btn-primary">
+          <span class="indicator-label"> INGRESA</span>
+          <span class="indicator-progress">Please wait...</span>
+        </button>
+      </div>
+
+      <div class="text-gray-500 text-center fw-semibold fs-6">
+        Todavía no tienes una cuenta?
+        <a (click)="goToRegister()" class="link-primary fw-semibold"
+          >Registrate</a
+        >
+      </div>
+    </form>
+  </div>
+</div>

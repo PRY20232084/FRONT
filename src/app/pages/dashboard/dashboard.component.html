@@ -1,0 +1,36 @@
+<div *ngIf="isLoading" class="text-center loading-overlay">
+  <div class="spinner-loader flex-column">
+    <span class="spinner-border text-primary" role="status"></span>
+</div>
+<span class="text-muted fs-6 fw-semibold mt-5">Cargando...</span>
+</div>
+
+<div class="form-group">
+  <label class="control-label">MATERIA PRIMA</label>
+  <select class="form-control" name="selectedRawMaterialId" [(ngModel)]="selectedRawMaterial" (change)="onRawMaterialChange()">
+    <option *ngFor="let rawMaterial of rawMaterials" [value]="rawMaterial.name">
+      {{ rawMaterial.name }}
+    </option>
+  </select>
+</div>
+
+<br />
+<br />
+
+<div>
+  <div id="chart">
+    <apx-chart
+      [series]="series"
+      [chart]="chartOptions.chart!"
+      [xaxis]="chartOptions.xaxis!"
+      [stroke]="chartOptions.stroke!"
+      [colors]="chartOptions.colors!"
+      [dataLabels]="chartOptions.dataLabels!"
+      [legend]="chartOptions.legend!"
+      [markers]="chartOptions.markers!"
+      [grid]="chartOptions.grid!"
+      [yaxis]="chartOptions.yaxis!"
+      [title]="chartOptions.title!"
+    ></apx-chart>
+  </div>
+</div>

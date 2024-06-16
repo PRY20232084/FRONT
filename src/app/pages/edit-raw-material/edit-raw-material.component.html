@@ -1,0 +1,98 @@
+<div *ngIf="isLoading" class="text-center loading-overlay">
+  <div class="spinner-loader flex-column">
+    <span class="spinner-border text-primary" role="status"></span>
+</div>
+<span class="text-muted fs-6 fw-semibold mt-5">Cargando...</span>
+</div>
+
+<div>
+    <form
+      class="text-center border border-light p-5 col-lg-6 offset-lg-3"
+      (ngSubmit)="updateRawMaterial()"
+    >
+      <p class="h4 mb-4">EDITAR PRODUCTO</p>
+      <br />
+      <div class="form-group col-md-12">
+        <label for="quantity">NOMBRE</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          placeholder="Nombre"
+          required
+          [(ngModel)]="editRawMaterial.name"
+        />
+      </div>
+
+      <div class="form-group col-md-12">
+        <label for="quantity">MARCA</label>
+        <input
+          type="text"
+          class="form-control"
+          id="brandName"
+          name="brandName"
+          placeholder="Marca"
+          required
+          [(ngModel)]="editRawMaterial.brandName"
+        />
+      </div>
+
+      <div class="form-group col-md-12">
+        <label for="quantity">COLOR</label>
+        <input
+          type="text"
+          class="form-control"
+          id="color"
+          name="color"
+          placeholder="Color"
+          required
+          [(ngModel)]="editRawMaterial.color"
+        />
+      </div>
+
+      <div class="form-group col-md-12">
+        <label for="quantity">STOCK</label>
+        <input
+          type="number"
+          class="form-control"
+          id="quantity"
+          name="quantity"
+          placeholder="0"
+          required
+          [(ngModel)]="editRawMaterial.stock"
+        />
+      </div>
+  
+        <div class="form-group">
+          <label class="control-label">UNIDAD DE MEDIDA</label>
+          <select class="form-control" [(ngModel)]="editRawMaterial.measurementUnit_ID" name="selectedMeasurementId">
+            <option *ngFor="let measurementUnit of measurementUnits" [value]="measurementUnit.id">
+              {{ measurementUnit.name }}
+            </option>
+          </select>
+        </div>
+  
+    <div class="form-group col-md-12">
+      <label for="quantity">DESCRIPCIÓN</label>
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        name="description"
+        placeholder="Descripción"
+        required
+        [(ngModel)]="editRawMaterial.description"
+      />
+    </div>
+
+  <br>
+      <div class="form-group col-md-12">
+        <button type="submit" class="btn btn-primary">GUARDAR CAMBIOS</button>
+      </div>
+      <br />
+      <div class="form-group col-md-12">
+        <button (click)="goBack()" class="btn btn-secondary">Atrás</button>
+      </div>
+    </form>
+  </div>

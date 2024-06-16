@@ -1,0 +1,42 @@
+<div *ngIf="isLoading" class="text-center loading-overlay">
+  <div class="spinner-loader flex-column">
+    <span class="spinner-border text-primary" role="status"></span>
+</div>
+<span class="text-muted fs-6 fw-semibold mt-5">Cargando...</span>
+</div>
+
+<div>
+  <form
+    class="text-center border border-light p-5 col-lg-6 offset-lg-3"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+  >
+    <p class="h4 mb-4">EDITAR TALLA</p>
+    <div class="form-group col-md-12">
+      <label for="name">NOMBRE</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        formControlName="name"
+        placeholder="Nombre"
+      />
+      <div
+        class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+        *ngIf="form.get('name')?.invalid && (form.get('name')?.dirty || form.get('name')?.touched)"
+      >
+        <div *ngIf="form.get('name')?.errors?.required">El nombre es requerido.</div>
+        <div *ngIf="form.get('name')?.errors?.pattern">El nombre solo puede contener hasta 4 letras mayusculas juntas</div>
+      </div>
+    </div>
+
+    <br />
+    <div class="form-group col-md-12">
+      <button type="submit" class="btn btn-primary">GUARDAR CAMBIOS</button>
+    </div>
+    <br />
+    <div class="form-group col-md-12">
+      <button (click)="goBack()" class="btn btn-secondary">ATRÁS</button>
+    </div>
+  </form>
+</div>
